@@ -1,0 +1,11 @@
+
+Todo:
+  [+] create short link: t.ly/zwKJ
+  [ ] redirect the user to home page after update is submited
+  [ ] fix site's colors in mobile's browser dark theme
+  [ ] create history page with api like {previous: oldUsersData, new: newUsersData}
+
+BACK  
+  [ ] handle error when db is not connected
+  [ ] handle correct error message when user is not exists in `login-controller` loginUser()
+  [ ] create login authintication with bcrypt, jwt, and cookies

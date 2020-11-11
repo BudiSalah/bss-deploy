@@ -1,0 +1,81 @@
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.row__col {
+    background-color: #ffffff;
+    padding: 50px;
+}
+
+.form__select {
+    overflow-y: auto;
+    max-height: 165px;
+    margin: 0;
+    padding: 0;
+}
+
+.form__item {
+    list-style: none;
+    margin-bottom: 30px;
+    font-size: 32px;
+    cursor: pointer;
+    text-transform: capitalize;
+    transition: .1s all linear;
+}
+
+.form__item::selection {
+    background-color: transparent;
+}
+
+.form__item::-moz-selection {
+    background-color: transparent;
+}
+
+.form__item:last-of-type {
+    margin-bottom: 0;
+}
+
+.form__item:hover,
+.form__item--selected {
+    background-color: #333333;
+    color: #fff;
+}
+
+.form__item--hidden {
+    opacity: .5;
+    pointer-events: none;
+    cursor: not-allowed;
+}
+
+.form__fieldset--number input {
+    width: 70px;
+    height: 70px;
+    text-align: center;
+    font-size: 56px;
+    border: 2px solid #333;
+    border-radius: 8px;
+    outline: none;
+    transition: .3s all linear;
+}
+
+.form__fieldset--number input:focus {
+    border-color: #5d25d9;
+}
+
+.form__hr {
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 32px;
+    text-shadow: 2px 2px 4px #333;
+}
+
+@media screen and (max-width: 700px) {
+    .row {
+        flex-direction: column;
+        gap: 20px;
+    }
+}

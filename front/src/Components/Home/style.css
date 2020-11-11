@@ -1,0 +1,145 @@
+:root {
+    --win-color: #41b498;
+    --draw-color: #999;
+    --lose-color: #f62a5d;
+}
+
+.table {
+    overflow: hidden;
+    width: 100%;
+    text-align: center;
+    border-collapse: collapse;
+    box-shadow: 4px 4px 4px #999;
+    background-color: #fff;
+}
+
+.win,
+.draw,
+.lose {
+    color: #ffffff;
+}
+
+.win {
+    background-color: rgb(0 255 107 / 45%);
+    background-color: var(--win-color);
+}
+
+.draw {
+    background-color: rgb(107 107 107 / 45%);
+    background-color: var(--draw-color);
+}
+
+.lose {
+    background-color: rgb(255 107 107 / 45%);
+    background-color: var(--lose-color);
+}
+
+.table__row {
+    height: 39px;
+}
+
+tbody .table__row:nth-of-type(even) {
+    background-color: #ddd;
+}
+
+.table__title,
+.table__item {
+    position: relative;
+    border: 2px solid #eee;
+}
+
+.table__row--head {
+    background-color: #333;
+    color: #fff;
+}
+
+.table__l5-wrapper {
+    width: 110px;
+    padding: 0 8px;
+}
+
+.table__l5 {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.table__l5-value {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+}
+
+.table__l5-value--win {
+    background-color: #41b498;
+}
+
+.table__l5-value--draw {
+    background-color: #999;
+}
+
+.table__l5-value--lose {
+    background-color: #f62a5d;
+}
+
+@media screen and (min-width: 701px) {
+    .table__title--md {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .Home {
+        overflow: hidden;
+    }
+    
+    .container {
+        overflow-x: auto;
+    }
+    
+    .table {
+        width: 1010px;
+    }
+
+    .table__title--md {
+        display: table-cell;
+        width: 77px;
+    }
+    
+    .table__item--rank,
+    .table__item--name {
+        position: absolute;
+        left: 20px;
+        width: 60px;
+        height: 39px;
+        margin-top: -1px;
+        border: 2px solid #eee;
+        border-bottom: none;
+        box-sizing: border-box;
+        line-height: 38px;
+        background: #fff;
+        z-index: 1;
+    }
+    
+    .table__item--name {
+        width: 110px;
+        left: 80px;
+    }
+
+    .table__item--black {
+        background-color: #333;
+    }
+
+    tbody .table__row:nth-of-type(even) .table__item--rank,
+    tbody .table__row:nth-of-type(even) .table__item--name {
+        background-color: #ddd;
+    }
+
+    tbody .table__row:last-of-type .table__item--rank,
+    tbody .table__row:last-of-type .table__item--name {
+        border-bottom: 2px solid #eee;
+    }
+    
+}
