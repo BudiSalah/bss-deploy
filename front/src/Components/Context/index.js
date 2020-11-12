@@ -12,10 +12,10 @@ export const MainContextProvider = (props) => {
     const [users, setUsers] = useState([])
     globalState = {...globalState, users, setUsers}
 
+    // move this to home component
+    // move this to home component
+    // move this to home component
     useEffect(() => {
-        // check first if user logged in and set the logged in state
-        // TBD
-
         // if user logged in get users and set them
         setUsers(staticUsers)
     }, [])

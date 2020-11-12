@@ -5,13 +5,19 @@ exports.generateToken = (cookieData) => {
     return token;
 }
 
-exports.protect = async (req, res, next) => {
+exports.protect = async (req, res) => {
     try {
         let token = req.cookies.jwt
         if (token == undefined) throw new Error("Token not exists!")
         jwt.verify(token, process.env.SECRET)
-        next()
+        res.status(200).json({
+            status: "success",
+            message: "Token is correct!"
+        })
     } catch(err) {
-        res.redirect("/login")
+        res.status(401).json({
+            status: "success",
+            message: "Token is not correct!"
+        })
     }
 }

@@ -33,7 +33,10 @@ exports.loginUser = async (req, res) => {
             // secure: true
         })
 
-        res.redirect("/add-player")
+        res.status(200).json({
+            status: "success",
+            message: "Login and cookie are done!"
+        })
     } catch(err) {
         res.status(401).json(new ReqError("Wrong id or password!", err.message))
     }
