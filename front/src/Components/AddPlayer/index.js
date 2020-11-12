@@ -5,9 +5,14 @@ import MdAdd from 'react-ionicons/lib/MdAdd'
 function AddPlayer() {
     let [newPlayer, setNewPlayer] = useState("")
 
+    function clearInputs() {
+        setNewPlayer("")
+    }
+
     function submitNewPlayer(e) {
         e.preventDefault()
         console.log("newPlayer:", newPlayer)
+        clearInputs()
     }
 
     return (

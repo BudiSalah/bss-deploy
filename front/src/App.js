@@ -1,6 +1,6 @@
-import React, {useEffect, useReducer} from "react"
+import React from "react"
 import './App.css'
-import {MainContext} from "./Components/Context"
+import {MainContextProvider} from "./Components/Context"
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom"
 import Page404 from './Components/Page404'
 import Navbar from './Components/Navbar'
@@ -8,40 +8,13 @@ import Login from './Components/Login'
 import Home from './Components/Home'
 import Update from './Components/Update'
 import AddPlayer from './Components/AddPlayer'
-import {staticUsers} from "./Components/Data/users"
 
 function App() {
 
-  const defaultState = {
-    ready: "No",
-    users: []
-  }
-
-  function reducer(currentState, action) {
-    switch (action.type) {
-      case "GET_USERS":
-        return {
-          ...currentState,
-          ready: "Yes",
-          users: staticUsers
-        }
-      default:
-        throw new Error("Budi Reducer Error")
-    }
-  }
-
-  const [state, dispatch] = useReducer(reducer, defaultState)
-
-  useEffect(() => {
-    dispatch({type: "GET_USERS"})
-  }, [])
-
   return (
-    <MainContext.Provider value={state}>
-      {console.log(state)}
+    <MainContextProvider>
       <Router>
         <Navbar />
-
         <Switch>
           <Route exact path="/">
             <Home />
@@ -60,7 +33,7 @@ function App() {
           </Route>
         </Switch>
       </Router>
-    </MainContext.Provider>
+    </MainContextProvider>
   )
 }
 
