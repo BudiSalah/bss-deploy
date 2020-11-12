@@ -12,12 +12,12 @@ exports.protect = async (req, res) => {
         jwt.verify(token, process.env.SECRET)
         res.status(200).json({
             status: "success",
-            message: "Token is correct!"
+            message: "token is correct!"
         })
     } catch(err) {
         res.status(401).json({
-            status: "success",
-            message: "Token is not correct!"
+            status: "faild",
+            message: "token is not correct!"
         })
     }
 }

@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt")
 const ReqError = require("./../controllers/error.controller")
 const {generateToken} = require("./auth.controller")
 
-exports.loginUser = async (req, res) => {    
+exports.loginUser = async (req, res) => {
     try {
         const {user, password} = req.body
 
@@ -42,3 +42,18 @@ exports.loginUser = async (req, res) => {
     }
 }
 
+exports.logoutUser = async (req, res) => {
+    try {
+        res.cookie("jwt", undefined)
+
+        res.status(200).json({
+            status: "success",
+            message: "user logged out"
+        })
+    } catch (err) {
+        res.status(501).json({
+            status: "faild",
+            message: "error when trying to signout!"
+        })
+    }
+}

@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react'
 import "./style.css"
-import MdUnlock from 'react-ionicons/lib/MdUnlock'
+import MdKey from 'react-ionicons/lib/MdKey'
 import {MainContext} from "./../Context"
 import {Redirect} from "react-router-dom"
 const axios = require('axios').default
@@ -60,7 +60,7 @@ function Login() {
                             </div>
                             <div className="fieldset">
                                 <button className="btn btn--text-center fieldset__input">
-                                    <MdUnlock className="btn__icon" fontSize="16px" color="#ffffff" />
+                                    <MdKey className="btn__icon" fontSize="16px" color="#ffffff" />
                                     <span className="btn__text">Login</span>
                                 </button>
                             </div>

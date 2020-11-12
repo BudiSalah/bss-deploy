@@ -13,7 +13,6 @@ app.use(express.json())
 app.use(cookieParser())
 app.use(cors())
 app.use(express.static(path.join(__dirname, "/front/build")))
-console.log(path.join(__dirname, "/front/build"))
 
 // mongoose
 //FIXME: handle error (if something went wrong while connecting to db)
@@ -41,6 +40,9 @@ app.use("/login", loginRouter)
 
 const {protect} = require("./controllers/auth.controller")
 app.get("/auth", protect)
+
+const {logoutUser} = require("./controllers/login-controller")
+app.get("/logout", logoutUser)
 
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "front/build/index.html"))
