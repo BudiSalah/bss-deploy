@@ -1,13 +1,16 @@
 import React from "react"
 import './App.css'
-import {MainContextProvider} from "./Components/Context"
-import {BrowserRouter as Router, Route, Switch} from "react-router-dom"
+import { MainContextProvider } from "./Components/Context"
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
 import Page404 from './Components/Page404'
 import Navbar from './Components/Navbar'
 import Login from './Components/Login'
 import Home from './Components/Home'
 import Update from './Components/Update'
 import AddPlayer from './Components/AddPlayer'
+
+// test
+import ProtectorRoute from "./Components/ProtectorRoute"
 
 function App() {
 
@@ -17,16 +20,22 @@ function App() {
         <Navbar />
         <Switch>
           <Route exact path="/">
-            <Home />
+            <ProtectorRoute>
+              <Home />
+            </ProtectorRoute>
           </Route>
           <Route path="/login">
             <Login />
           </Route>
           <Route path="/update">
-            <Update />
+            <ProtectorRoute>
+              <Update />
+            </ProtectorRoute>
           </Route>
           <Route path="/add-player">
-            <AddPlayer />
+            <ProtectorRoute>
+              <AddPlayer />
+            </ProtectorRoute>
           </Route>
           <Route path="*">
             <Page404 />
