@@ -102,3 +102,29 @@ body:before {
 .fieldset__input {
     padding: 8px;
 }
+
+.looding.done {
+    animation-duration: .4s !important;
+}
+
+@keyframes looding {
+    0% {
+        width: 0%;
+    }
+    
+    25% {
+        width: 20%;
+    }
+
+    50% {
+        width: 66%;
+    }
+
+    75% {
+        width: 70%;
+    }
+
+    100% {
+        width: 100%;
+    }
+}

@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from "react"
 import {MainContext} from "./Context"
 import {Redirect} from "react-router-dom"
+import Looding from "./Feedback/Looding"
 const axios = require("axios").default
 
 function ProtectorRoute(props) {
@@ -13,6 +14,8 @@ function ProtectorRoute(props) {
             const {data} = res
             data.status === "success" ? setLoggedIn(true) : setLoggedIn(false)
             setLooding(false)
+        }).catch(err => {
+            setLooding(false)
         })
     }, [loggedIn, setLoggedIn])
 
@@ -20,10 +23,13 @@ function ProtectorRoute(props) {
         <>
             {
                 looding ? (
-                    <h1>looding!</h1>
+                    <Looding />
                 ) : (
                     loggedIn ? (
-                        props.children
+                        <>
+                            <Looding done="done" />
+                            {props.children}
+                        </>
                     ) : (
                         <Redirect to={{pathname: "/login"}} />
                     )
