@@ -1,11 +1,9 @@
 const router = require("express").Router()
-const {createPlayer} = require("./../controllers/user.controller")
+const {allPlayers, createPlayer} = require("./../controllers/user.controller")
 
 router
-    .route("/")
-    .get((req, res) => {
-        res.send("All Users!")
-    })
+    .route("/all-players")
+    .get(allPlayers)
 
 router
     .route("/add-player")

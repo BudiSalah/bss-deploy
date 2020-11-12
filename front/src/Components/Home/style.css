@@ -48,6 +48,10 @@ tbody .table__row:nth-of-type(even) {
     border: 2px solid #eee;
 }
 
+.table__item--name {
+    text-transform: capitalize;
+}
+
 .table__row--head {
     background-color: #333;
     color: #fff;
@@ -63,7 +67,7 @@ tbody .table__row:nth-of-type(even) {
     flex-wrap: wrap;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 .table__l5-value {
