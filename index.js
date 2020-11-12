@@ -38,11 +38,11 @@ app.use("/", usersRouter)
 const loginRouter = require("./routers/login.router")
 app.use("/login", loginRouter)
 
-const {protect} = require("./controllers/auth.controller")
-app.get("/auth", protect)
-
 const {logoutUser} = require("./controllers/login-controller")
 app.get("/logout", logoutUser)
+
+const {protect} = require("./controllers/auth.controller")
+app.get("/auth", protect)
 
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "front/build/index.html"))

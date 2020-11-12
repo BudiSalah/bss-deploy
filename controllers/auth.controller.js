@@ -9,10 +9,11 @@ exports.protect = async (req, res) => {
     try {
         let token = req.cookies.jwt
         if (token == undefined) throw new Error("Token not exists!")
-        jwt.verify(token, process.env.SECRET)
+        let tokenParse = jwt.verify(token, process.env.SECRET)
         res.status(200).json({
             status: "success",
-            message: "token is correct!"
+            message: "token is correct!",
+            parse: tokenParse
         })
     } catch(err) {
         res.status(401).json({

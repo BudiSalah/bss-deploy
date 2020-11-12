@@ -7,7 +7,11 @@ exports.createPlayer = async (req, res) => {
             league_id: req.body.league_id,
             name: req.body.name
         })
-        res.status(201).json(newPlayer)
+        res.status(201).json({
+            status: "success",
+            message: "new player has been created",
+            newPlayer
+        })
     } catch (err) {
         res.status(400).json(new ReqError("User already exists!", err))
     }

@@ -1,8 +1,11 @@
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
 import "./style.css"
 import MdAdd from 'react-ionicons/lib/MdAdd'
+import {MainContext} from "./../Context"
+const axios = require("axios").default
 
 function AddPlayer() {
+    let {credential} = useContext(MainContext)
     let [newPlayer, setNewPlayer] = useState("")
 
     function clearInputs() {
@@ -11,8 +14,16 @@ function AddPlayer() {
 
     function submitNewPlayer(e) {
         e.preventDefault()
-        console.log("newPlayer:", newPlayer)
-        clearInputs()
+        axios.post("/add-player", {
+            league_id: credential.leauge,
+            name: newPlayer
+        }).then(res => {
+            clearInputs()
+            alert(`${newPlayer} is added successfully!`)
+        }).catch(err => {
+            alert("Player already exists!")
+            console.log(err)
+        })
     }
 
     return (

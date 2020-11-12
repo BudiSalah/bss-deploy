@@ -1,6 +1,5 @@
 const router = require("express").Router()
 const {createPlayer} = require("./../controllers/user.controller")
-const {protect} = require("./../controllers/auth.controller")
 
 router
     .route("/")
@@ -10,6 +9,6 @@ router
 
 router
     .route("/add-player")
-    .post(protect, createPlayer)
+    .post(createPlayer)
 
 module.exports = router

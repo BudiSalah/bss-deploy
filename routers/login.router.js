@@ -1,5 +1,5 @@
 const router = require("express").Router()
-const {loginUser, loginOutUser} =  require("./../controllers/login-controller")
+const {loginUser} =  require("./../controllers/login-controller")
 
 router
     .route("/")

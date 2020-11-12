@@ -1,5 +1,4 @@
-import React, {useState, useEffect} from "react"
-import {staticUsers} from "./../Data/users"
+import React, {useState} from "react"
 
 export const MainContext = React.createContext()
 
@@ -11,14 +10,9 @@ export const MainContextProvider = (props) => {
     
     const [users, setUsers] = useState([])
     globalState = {...globalState, users, setUsers}
-
-    // move this to home component
-    // move this to home component
-    // move this to home component
-    useEffect(() => {
-        // if user logged in get users and set them
-        setUsers(staticUsers)
-    }, [])
+    
+    const [credential, setCredential] = useState({})
+    globalState = {...globalState, credential, setCredential}
 
     return (
         <MainContext.Provider value={globalState}>
