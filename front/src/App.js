@@ -8,8 +8,6 @@ import Login from './Components/Login'
 import Home from './Components/Home'
 import Update from './Components/Update'
 import AddPlayer from './Components/AddPlayer'
-
-// test
 import ProtectorRoute from "./Components/ProtectorRoute"
 
 function App() {

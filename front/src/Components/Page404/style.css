@@ -1,0 +1,62 @@
+.fof,
+.fof__row {
+    display: flex;
+    flex-direction: row;
+}
+
+.fof__row {
+    gap: 15px;
+    margin-top: 30px;
+    justify-content: center;
+}
+
+.fof__col {
+    flex: 0 0 50%;
+    width: 50%;
+    text-align: center;
+}
+
+.fof__img {
+    width: 100%;
+}
+
+.fof__title,
+.fof__text {
+    margin: 0;
+    line-height: 1;
+}
+
+.fof__title {
+    font-size: 110px;
+    margin-top: 7vw;
+}
+
+.fof__text {
+    font-size: 32px;
+}
+
+@media screen and (max-width: 991px) {
+    .fof {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .fof__col {
+        flex: 0 0 auto;
+        width: auto;
+    }
+
+    .fof__img {
+        width: auto;
+        max-height: 200px;
+    }
+
+    .fof__title {
+        font-size: 70px;
+        margin-top: 0;
+    }
+    
+    .fof__text {
+        font-size: 24px;
+    }
+}
