@@ -51,7 +51,7 @@ function Home() {
                 return 0;
             }
             
-            return users.slice().sort(sortByPoints).sort(sortByGd)
+            return users.slice().sort(sortByGd).sort(sortByPoints)
         })
     }, [users])
 
