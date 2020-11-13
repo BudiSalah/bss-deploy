@@ -76,7 +76,7 @@ tbody .table__row:nth-of-type(even) {
     border-radius: 50%;
 }
 
-.table__l5-value--win {
+.table__l5-value--won {
     background-color: #41b498;
 }
 
@@ -84,7 +84,7 @@ tbody .table__row:nth-of-type(even) {
     background-color: #999;
 }
 
-.table__l5-value--lose {
+.table__l5-value--loss {
     background-color: #f62a5d;
 }
 

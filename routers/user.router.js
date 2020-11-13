@@ -1,5 +1,5 @@
 const router = require("express").Router()
-const {allPlayers, createPlayer} = require("./../controllers/user.controller")
+const {allPlayers, createPlayer, updatePlayers} = require("./../controllers/user.controller")
 
 router
     .route("/all-players")
@@ -8,5 +8,9 @@ router
 router
     .route("/add-player")
     .post(createPlayer)
+
+router
+    .route("/update-players")
+    .post(updatePlayers)
 
 module.exports = router

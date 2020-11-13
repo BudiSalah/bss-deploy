@@ -38,3 +38,39 @@ exports.createPlayer = async (req, res) => {
         res.status(400).json(new ReqError("User already exists!", err))
     }
 }
+
+exports.updatePlayers = async (req, res) => {
+    try {
+        const { playerOne, playerTwo } = req.body
+        const updatePlayerOne = await User.updateOne({ name: playerOne.name }, {
+            $inc: {
+                "played": 1,
+                "gf": playerOne.gf,
+                "ga": playerOne.ga,
+                [playerOne.game_status]: 1,
+                "points": playerOne.points
+            }
+        })
+
+        const updatePlayerTwo = await User.updateOne({ name: playerTwo.name }, {
+            $inc: {
+                "played": 1,
+                "gf": playerTwo.gf,
+                "ga": playerTwo.ga,
+                [playerTwo.game_status]: 1,
+                "points": playerTwo.points
+            }
+        })
+
+        res.status(201).json({
+            status: "success",
+            message: "new player has been created",
+            updated: {
+                updatePlayerOne,
+                updatePlayerTwo
+            }
+        })
+    } catch (err) {
+        res.status(400).json(new ReqError("can't update player!", err))
+    }
+}

@@ -38,7 +38,10 @@ const userSchema = new Schema({
         type: Number,
         default: 0
     },
-    last_f: Array
+    last_f: {
+        type: Array,
+        default: ["-", "-", "-", "-", "-"]
+    }
 }, 
 {
     timestamps: { createdAt: 'created_at' }

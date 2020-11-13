@@ -1,23 +1,24 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import "./style.css"
-import {MainContext} from "./../Context"
+import { MainContext } from "./../Context"
 import MdAdd from 'react-ionicons/lib/MdAdd'
+const axios = require("axios").default
 
 function Update() {
-    let [firstPlayerId, setFirstPlayerId] = useState("")
-    let [secondPlayerId, setSecondPlayerId] = useState("")
-    let [firstPlayerScore, setFirstPlayerScore] = useState("")
-    let [secondPlayerScore, setSecondPlayerScore] = useState("")
+    let {users, setUsers} = useContext(MainContext)
+    let [loaded, setLoaded] = useState(false)
+    let [players, setPlayers] = useState("")
+
+    let [firstPlayer, setFirstPlayer] = useState({id: "", name: "", score: ""})
+    let [secondPlayer, setSecondPlayer] = useState({id: "", name: "", score: ""})
 
     function clearInputs() {
-        setFirstPlayerId("")
-        setSecondPlayerId("")
-        setFirstPlayerScore("")
-        setSecondPlayerScore("")
+        setFirstPlayer({id: "", name: "", score: "", pints: 0})
+        setSecondPlayer({id: "", name: "", score: "", pints: 0})
 
         let secondListHiddenInput = document.querySelector("#second_list .form__item--hidden")
         secondListHiddenInput.classList.remove("form__item--hidden")
-        
+
         let selectedPlayers = document.querySelectorAll(".form__item--selected")
         for (let item of selectedPlayers) {
             item.classList.remove("form__item--selected")
@@ -29,17 +30,60 @@ function Update() {
         let secondList = document.getElementById("second_list")
         secondList.classList.add("form__item--hidden")
     }
-    
+
     function submitForm(e) {
         e.preventDefault()
-        if ((firstPlayerId === "" || secondPlayerId === "") || (firstPlayerScore === "" || secondPlayerScore === "")) {
-            console.log("Wrong Inputs")
+        if ((firstPlayer.id === "" || secondPlayer.id === "") || (firstPlayer.score === "" || secondPlayer.score === "")) {
+            alert("Wrong Inputs")
             return
         }
 
-        clearInputs()
-        document.body.scrollIntoView({behavior: "smooth"})
-        console.log("Update the server")
+        let firstPlayerObJ = {
+            id: firstPlayer.id,
+            name: firstPlayer.name,
+            gf: firstPlayer.score,
+            ga: secondPlayer.score,
+            game_status: (firstPlayer.score > secondPlayer.score ? "won" : firstPlayer.score < secondPlayer.score ? "loss" : "draw"),
+            points: firstPlayer.score > secondPlayer.score ? 3 : firstPlayer.score < secondPlayer.score ? 0 : 1
+        }
+
+        let secondPlayerObJ = {
+            id: secondPlayer.id,
+            name: secondPlayer.name,
+            gf: secondPlayer.score,
+            ga: firstPlayer.score,
+            game_status: (secondPlayer.score > firstPlayer.score ? "won" : secondPlayer.score < firstPlayer.score ? "loss" : "draw"),
+            points: secondPlayer.score > firstPlayer.score ? 3 : secondPlayer.score < firstPlayer.score ? 0 : 1
+        }
+
+        axios.post("/matchs/update", {
+            playerOne: firstPlayerObJ,
+            playerTwo: secondPlayerObJ
+        }).then(res => {
+            clearInputs()
+            document.body.scrollIntoView({ behavior: "smooth" })
+        }).catch(err => {
+            // TBD
+            // feedback
+            console.log("can't create new match:", err)
+            return
+        })
+        
+        // update users
+        axios.post("/update-players", {
+            playerOne: firstPlayerObJ,
+            playerTwo: secondPlayerObJ
+        }).then(res => {
+            // TBD
+            // feedback
+            console.log("Players updated")
+            console.log(res)
+        }).catch(err => {
+            // TBD
+            // feedback
+            console.log("can't update players")
+            console.log(err)
+        })
     }
 
     function selectUser(e) {
@@ -48,12 +92,12 @@ function Update() {
         let firstList = document.getElementById("first_list")
         let secondList = document.getElementById("second_list")
         let secondListItems = Array.from(secondList.childNodes)
-        
+
         if (target.parentElement.id === "first_list") {
             secondList.classList.remove("form__item--hidden")
 
             let currentSelected = firstList.querySelector(".form__item--selected")
-            
+
             if (currentSelected !== null) {
                 currentSelected.classList.remove("form__item--selected")
             }
@@ -63,13 +107,13 @@ function Update() {
             secondListItems.filter(item => {
                 if (target.id === item.id && item.classList.contains("form__item--selected")) {
                     item.classList.remove("form__item--selected")
-                    setSecondPlayerId("")
+                    setSecondPlayer({...secondPlayer, id: ""})
                 }
 
                 return item.id === target.id ? item.classList.add("form__item--hidden") : item.classList.remove("form__item--hidden")
             })
-            
-            setFirstPlayerId(target.id)
+
+            setFirstPlayer({...firstPlayer, id: target.id, name: target.innerText.toLowerCase()})
 
         } else {
             let currentSelected = secondList.querySelector(".form__item--selected")
@@ -79,8 +123,8 @@ function Update() {
             }
 
             target.classList.add("form__item--selected")
-            
-            setSecondPlayerId(target.id)
+
+            setSecondPlayer({...secondPlayer, id: target.id, name: target.innerText.toLowerCase()})
         }
     }
 
@@ -89,22 +133,22 @@ function Update() {
 
         if (target.id === "first_player_score") {
             if (!isNaN(target.value)) {
-                setFirstPlayerScore(target.value)
+                setFirstPlayer({...firstPlayer, score: target.value})
             } else {
-                setFirstPlayerScore("")
+                setFirstPlayer({...firstPlayer, score: ""})
             }
         } else {
             if (!isNaN(target.value)) {
-                setSecondPlayerScore(target.value)
+                setSecondPlayer({...secondPlayer, score: target.value})
             } else {
-                setSecondPlayerScore("")
+                setSecondPlayer({...secondPlayer, score: ""})
             }
         }
     }
 
     function showHideSubmitBtn() {
         let submitBtn = document.getElementById("submit-btn")
-        if ((firstPlayerId === "" || secondPlayerId === "") || (firstPlayerScore === "" || secondPlayerScore === "")) {
+        if ((firstPlayer.id === "" || secondPlayer.id === "") || (firstPlayer.score === "" || secondPlayer.score === "")) {
             submitBtn.classList.add("form__item--hidden")
         } else {
             submitBtn.classList.remove("form__item--hidden")
@@ -112,62 +156,73 @@ function Update() {
     }
 
     useEffect(() => {
+        if (loaded === false && users.length < 2) {
+            axios.get("/all-players").then(res => {
+                setUsers(res.data.allPlayers)
+            }).catch(err => {
+                // TBD
+                // feedback
+                console.log("can't fetch all players to update:", err)
+            })
+            setLoaded(true)
+        }
+    }, [loaded, users.length, setUsers])
+
+    useEffect(() => {
         showHideSubmitBtn()
     })
 
+    useEffect(() => {
+        let playersMap = users.map(item => {
+            const {_id, name} = item
+            return <li key={_id} id={_id} className="form__item" onClick={selectUser}>{name}</li>
+        })
+        setPlayers(playersMap)
+    
+    // eslint-disable-next-line
+    }, [users])
+
     return (
-        <MainContext.Consumer>
-            {value => {
-                const {users} = value
-                const usersArray = users.map(item => {
-                    const {id, name} = item
-                    return (
-                        <li key={id} id={id} className="form__item" onClick={selectUser}>{name}</li>
-                    )
-                })
+        <section>
+            <section className="Update">
+                <div className="container">
+                    <form onSubmit={submitForm} className="form">
+                        <div className="row">
+                            <div className="form__fieldset row__col">
+                                <ul id="first_list" className="form__select">
+                                    {players}
+                                </ul>
 
-                return (
-                    <section className="Update">
-                        <div className="container">
-                            <form onSubmit={submitForm} className="form">
-                                <div className="row">
-                                    <div className="form__fieldset row__col">
-                                        <ul id="first_list" className="form__select">
-                                            {usersArray}
-                                        </ul>
-                                        
-                                        <hr />
+                                <hr />
 
-                                        <div className="form__fieldset form__fieldset--number row__col">
-                                            <input id="first_player_score" className="" type="text" name="first_player_score" value={firstPlayerScore} maxLength="2" placeholder="0" onChange={playerScore} autoComplete="off"/>
-                                        </div>
-                                    </div>
-
-                                    <span className="form__hr">VS</span>
-                                    
-                                    <div className="form__fieldset row__col">
-                                        <ul id="second_list" className="form__select form__item--hidden">
-                                            {usersArray}
-                                        </ul>
-                                        
-                                        <hr />
-
-                                        <div className="form__fieldset form__fieldset--number row__col">
-                                            <input id="second_player_score" className="" type="text" name="second_player_score" value={secondPlayerScore} maxLength="2" placeholder="0" onChange={playerScore} autoComplete="off"/>
-                                        </div>
-                                    </div>
+                                <div className="form__fieldset form__fieldset--number row__col">
+                                    <input id="first_player_score" className="" type="text" name="first_player_score" value={firstPlayer.score} maxLength="2" placeholder="0" onChange={playerScore} autoComplete="off" />
                                 </div>
+                            </div>
 
-                                <button id="submit-btn" type="submit" className="btn btn--center form__item--hidden">
-                                    <MdAdd className="btn__icon" fontSize="16px" color="#ffffff"/>
-                                    <span className="btn__text">Update</span>
-                                </button>
-                            </form>
-                        </div> 
-                    </section>
-                )
-            }}
-        </MainContext.Consumer>
+                            <span className="form__hr">VS</span>
+
+                            <div className="form__fieldset row__col">
+                                <ul id="second_list" className="form__select form__item--hidden">
+                                    {players}
+                                </ul>
+
+                                <hr />
+
+                                <div className="form__fieldset form__fieldset--number row__col">
+                                    <input id="second_player_score" className="" type="text" name="second_player_score" value={secondPlayer.score} maxLength="2" placeholder="0" onChange={playerScore} autoComplete="off" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <button id="submit-btn" type="submit" className="btn btn--center form__item--hidden">
+                            <MdAdd className="btn__icon" fontSize="16px" color="#ffffff" />
+                            <span className="btn__text">Update</span>
+                        </button>
+                    </form>
+                </div>
+            </section>
+        </section>
     )
 }
 

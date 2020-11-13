@@ -20,6 +20,7 @@
 
 .form__item {
     list-style: none;
+    margin-right: 10px;
     margin-bottom: 30px;
     font-size: 32px;
     cursor: pointer;
@@ -51,6 +52,10 @@
     cursor: not-allowed;
 }
 
+.form__fieldset--number {
+    text-align: center;
+}
+
 .form__fieldset--number input {
     width: 70px;
     height: 70px;
@@ -67,10 +72,12 @@
 }
 
 .form__hr {
+    padding: 35px 30px;
     color: #ffffff;
     font-weight: bold;
     font-size: 32px;
     text-shadow: 2px 2px 4px #333;
+    background: #000;
 }
 
 @media screen and (max-width: 700px) {

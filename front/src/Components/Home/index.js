@@ -9,6 +9,7 @@ const axios = require("axios").default
 function Home() {
     let {users, setUsers, loggedIn} = useContext(MainContext)
     const [loaded, setLoaded] = useState(false)
+    const [sortedUsers, setSortedUsers] = useState([])
     const [fixUpdateBtn, setFixUpdateBtn] = useState({justifyContent: "flex-end"})
 
     useEffect(() => {
@@ -28,17 +29,31 @@ function Home() {
         }
     })
 
-    function sortByPoints(a, b) {
-        if (a.points > b.points) {
-            return -1;
-        }
-        if (a.points < b.points) {
-            return 1;
-        }
-        return 0;
-    }
-    
-    users = users.sort(sortByPoints)
+    useEffect(() => {
+        setSortedUsers(() => {
+            function sortByPoints(a, b) {
+                if (a.points > b.points) {
+                    return -1;
+                }
+                if (a.points < b.points) {
+                    return 1;
+                }
+                return 0;
+            }
+
+            function sortByGd(a, b) {
+                if ((a.gf - a.ga) > (b.gf - b.ga)) {
+                    return -1;
+                }
+                if ((a.gf - a.ga) < (b.gf - b.ga)) {
+                    return 1;
+                }
+                return 0;
+            }
+            
+            return users.slice().sort(sortByPoints).sort(sortByGd)
+        })
+    }, [users])
 
     return (
         <section className="Home">
@@ -68,13 +83,14 @@ function Home() {
                                 </tr>
                             </thead>
                             <tbody className="table__body">
-                                {users.map((item, index) => {
-                                    const { _id, name, played, won, draw, loss, gf, ga, points, last_f } = item
+                                {sortedUsers.map((item, index) => {
+                                    const { _id, name, played, won, draw, loss, gf, ga, points} = item
 
-                                    let tableLastFive = last_f.map((item, index) => {
-                                        item = String(item).toLocaleLowerCase()
-                                        return <div key={index} className={`table__l5-value table__l5-value--${item}`}></div>
-                                    })
+                                    // TBD
+                                    // let tableLastFive = last_f.map((item, index) => {
+                                    //     item = String(item).toLocaleLowerCase()
+                                    //     return <div key={index} className={`table__l5-value table__l5-value--${item}`}></div>
+                                    // })
 
                                     return (
                                         <tr key={_id} className="table__row">
@@ -94,7 +110,9 @@ function Home() {
                                             <td className="table__item">{points}</td>
                                             <td className="table__item table__l5-wrapper">
                                                 <div className="table__l5">
-                                                    {tableLastFive.length < 5 ? "TBD" : tableLastFive}
+                                                    {/* TBD */}
+                                                    {/* {tableLastFive.length < 5 ? "TBD" : tableLastFive} */}
+                                                    TBD
                                                 </div>
                                             </td>
                                         </tr>
