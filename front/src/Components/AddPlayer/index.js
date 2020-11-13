@@ -1,12 +1,14 @@
-import React, {useState, useContext} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import "./style.css"
 import MdAdd from 'react-ionicons/lib/MdAdd'
 import {MainContext} from "./../Context"
+import Notification from "./../Feedback/Notification"
 const axios = require("axios").default
 
 function AddPlayer() {
     let {credential} = useContext(MainContext)
     let [newPlayer, setNewPlayer] = useState("")
+    let [showNoti, setShowNoti] = useState([false, {mesg: "", status: ""}])
 
     function clearInputs() {
         setNewPlayer("")
@@ -19,12 +21,17 @@ function AddPlayer() {
             name: newPlayer
         }).then(res => {
             clearInputs()
-            alert(`${newPlayer} is added successfully!`)
+            setShowNoti([true, {mesg: `${newPlayer} has added!`, status: "success"}])
         }).catch(err => {
-            alert("Player already exists!")
-            console.log(err)
+            setShowNoti([true, {mesg: "Player exists. Try new name!", status: "faild"}])
         })
     }
+
+    useEffect(() => {
+        if (showNoti[0] === true) {
+            setTimeout(() => setShowNoti([false]), 1500)
+        }
+    }, [showNoti])
 
     return (
         <div className="Addplayer">
@@ -42,6 +49,8 @@ function AddPlayer() {
                     </div>
                 </form>
             </div>
+
+            {showNoti[0] && <Notification msg={showNoti[1].mesg} status={showNoti[1].status} />}
         </div>
     )
 }
