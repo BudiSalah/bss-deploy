@@ -48,6 +48,10 @@ tbody .table__row:nth-of-type(even) {
     border: 2px solid #eee;
 }
 
+.table__title--cursor {
+    cursor: help;
+}
+
 .table__item--name {
     text-transform: capitalize;
 }

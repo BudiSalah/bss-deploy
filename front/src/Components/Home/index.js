@@ -69,17 +69,18 @@ function Home() {
                                 <tr className="table__row table__row--head">
                                     <th className="table__title table__title--md"></th>
                                     <th className="table__title table__title--md"></th>
-                                    <th className="table__title table__item--rank table__item--black">#</th>
+                                    <th title="Rank" className="table__title table__title--cursor table__item--rank table__item--black">#</th>
                                     <th className="table__title table__item--name table__item--black">Name</th>
-                                    <th className="table__title">P</th>
-                                    <th className="table__title">W</th>
-                                    <th className="table__title">D</th>
-                                    <th className="table__title">L</th>
-                                    <th className="table__title">GF</th>
-                                    <th className="table__title">GA</th>
-                                    <th className="table__title">GD</th>
-                                    <th className="table__title">PT</th>
-                                    <th className="table__title">L5</th>
+                                    <th title="Played" className="table__title table__title--cursor">P</th>
+                                    <th title="Won" className="table__title table__title--cursor">W</th>
+                                    <th title="Draw" className="table__title table__title--cursor">D</th>
+                                    <th title="Loss" className="table__title table__title--cursor">L</th>
+                                    <th title="Goal For" className="table__title table__title--cursor">GF</th>
+                                    <th title="Goal Against" className="table__title table__title--cursor">GA</th>
+                                    <th title="Goal Difference" className="table__title table__title--cursor">GD</th>
+                                    <th title="Points" className="table__title table__title--cursor">PT</th>
+                                    {/* TBD */}
+                                    {/* <th className="table__title">L5</th> */}
                                 </tr>
                             </thead>
                             <tbody className="table__body">
@@ -108,13 +109,14 @@ function Home() {
                                             <td className="table__item">{ga}</td>
                                             <td className="table__item">{gf - ga}</td>
                                             <td className="table__item">{points}</td>
-                                            <td className="table__item table__l5-wrapper">
+                                            {/* TBD */}
+                                            {/* <td className="table__item table__l5-wrapper">
                                                 <div className="table__l5">
-                                                    {/* TBD */}
-                                                    {/* {tableLastFive.length < 5 ? "TBD" : tableLastFive} */}
+                                                    TBD
+                                                    {tableLastFive.length < 5 ? "TBD" : tableLastFive}
                                                     TBD
                                                 </div>
-                                            </td>
+                                            </td> */}
                                         </tr>
                                     )
                                 })}

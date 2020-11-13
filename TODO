@@ -6,6 +6,7 @@ Todo:
 
 BACK  
   [+] create login authintication with bcrypt, jwt, and cookies
+  [ ] set and get last_f field
   [ ] handle error when db is not connected
   [ ] handle correct error message when user is not exists in `login-controller` loginUser()
 
@@ -15,3 +16,4 @@ IMPORTANT
   [+] find a way to sort users by points
   [+] sort users by name in update page
   [+] sort home table by points and gd
+  [ ] show default league table at home if no user looged in
