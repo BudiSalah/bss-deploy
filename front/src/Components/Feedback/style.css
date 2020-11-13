@@ -1,0 +1,21 @@
+.notification {
+    position: absolute;
+    left: 50%;
+    bottom: 6%;
+    width: 300px;
+    margin-left: -150px;
+    padding: 10px;
+    border-radius: 8px;
+    color: #fff;
+    text-align: center;
+    opacity: 1;
+    transition: .2s all linear;
+}
+
+.notification--success {
+    background-color: var(--win-color);
+}
+
+.notification--faild {
+    background-color: var(--lose-color);
+}

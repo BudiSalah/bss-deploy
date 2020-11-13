@@ -2,13 +2,14 @@ import React, { useState, useEffect, useContext } from 'react'
 import "./style.css"
 import { MainContext } from "./../Context"
 import MdAdd from 'react-ionicons/lib/MdAdd'
+import Notification from "./../Feedback/Notification"
 const axios = require("axios").default
 
 function Update() {
     let {users, setUsers} = useContext(MainContext)
     let [loaded, setLoaded] = useState(false)
+    let [showNoti, setShowNoti] = useState([false, {mesg: "", status: ""}])
     let [players, setPlayers] = useState("")
-
     let [firstPlayer, setFirstPlayer] = useState({id: "", name: "", score: ""})
     let [secondPlayer, setSecondPlayer] = useState({id: "", name: "", score: ""})
 
@@ -63,9 +64,7 @@ function Update() {
             clearInputs()
             document.body.scrollIntoView({ behavior: "smooth" })
         }).catch(err => {
-            // TBD
-            // feedback
-            console.log("can't create new match:", err)
+            setShowNoti([true, {mesg: "Can't update match. Try again!", status: "faild"}])
             return
         })
         
@@ -74,15 +73,9 @@ function Update() {
             playerOne: firstPlayerObJ,
             playerTwo: secondPlayerObJ
         }).then(res => {
-            // TBD
-            // feedback
-            console.log("Players updated")
-            console.log(res)
+            setShowNoti([true, {mesg: "Table has updated!", status: "success"}])
         }).catch(err => {
-            // TBD
-            // feedback
-            console.log("can't update players")
-            console.log(err)
+            setShowNoti([true, {mesg: "Can't update players", status: "faild"}])
         })
     }
 
@@ -160,9 +153,7 @@ function Update() {
             axios.get("/all-players").then(res => {
                 setUsers(res.data.allPlayers)
             }).catch(err => {
-                // TBD
-                // feedback
-                console.log("can't fetch all players to update:", err)
+                setShowNoti([true, {mesg: "Error. Try again!", status: "faild"}])
             })
             setLoaded(true)
         }
@@ -222,6 +213,8 @@ function Update() {
                     </form>
                 </div>
             </section>
+
+            {showNoti[0] && <Notification msg={showNoti[1].mesg} status={showNoti[1].status} />}
         </section>
     )
 }
