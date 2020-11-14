@@ -71,7 +71,12 @@
     border-color: #5d25d9;
 }
 
+.form__label--score {
+    margin: 0 0 8px;
+}
+
 .form__hr {
+    margin: 15px 0;
     padding: 35px 30px;
     color: #ffffff;
     font-weight: bold;

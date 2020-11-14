@@ -193,6 +193,7 @@ function Update() {
                                 <hr />
 
                                 <div className="form__fieldset form__fieldset--number row__col">
+                                    <h5 className="form__label form__label--score">Score</h5>
                                     <input id="first_player_score" className="" type="text" name="first_player_score" value={firstPlayer.score} maxLength="2" placeholder="0" onChange={playerScore} autoComplete="off" />
                                 </div>
                             </div>
@@ -207,6 +208,7 @@ function Update() {
                                 <hr />
 
                                 <div className="form__fieldset form__fieldset--number row__col">
+                                    <h5 className="form__label form__label--score">Score</h5>
                                     <input id="second_player_score" className="" type="text" name="second_player_score" value={secondPlayer.score} maxLength="2" placeholder="0" onChange={playerScore} autoComplete="off" />
                                 </div>
                             </div>
