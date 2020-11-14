@@ -173,6 +173,12 @@ function Update() {
     // eslint-disable-next-line
     }, [users])
 
+    useEffect(() => {
+        if (showNoti[0] === true) {
+            setTimeout(() => setShowNoti([false]), 1500)
+        }
+    }, [showNoti])
+
     return (
         <section>
             <section className="Update">
