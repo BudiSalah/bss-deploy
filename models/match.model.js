@@ -1,6 +1,10 @@
 const {Schema, model} = require("mongoose")
 
 const matchSchema = new Schema({
+    league_id: {
+        type: String,
+        require: [true, "Missing match league id!"],
+    },
     playerOne: {
         id: {
             type: String,

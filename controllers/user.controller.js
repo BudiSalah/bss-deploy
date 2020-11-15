@@ -48,7 +48,10 @@ exports.createPlayer = async (req, res) => {
 exports.updatePlayers = async (req, res) => {
     try {
         const { playerOne, playerTwo } = req.body
-        const updatePlayerOne = await User.updateOne({ name: playerOne.name }, {
+        let token = req.cookies.jwt
+        let league_id = jwt.verify(token, process.env.SECRET).leauge
+
+        const updatePlayerOne = await User.updateOne({ name: playerOne.name, league_id }, {
             $inc: {
                 "played": 1,
                 "gf": playerOne.gf,
@@ -58,7 +61,7 @@ exports.updatePlayers = async (req, res) => {
             }
         })
 
-        const updatePlayerTwo = await User.updateOne({ name: playerTwo.name }, {
+        const updatePlayerTwo = await User.updateOne({ name: playerTwo.name, league_id }, {
             $inc: {
                 "played": 1,
                 "gf": playerTwo.gf,

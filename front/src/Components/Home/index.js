@@ -129,7 +129,7 @@ function Home() {
             <nav className="nav">
                 <div className="container">
                     <div className="nav__list" style={fixUpdateBtn}>
-                        {(users.length > 2) &&
+                        {(users.length >= 2) &&
                             <Link to="/update" className="btn">
                                 <MdAdd className="btn__icon" fontSize="16px" color="#ffffff" />
                                 <span className="btn__text">Update</span>
