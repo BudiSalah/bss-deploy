@@ -1,15 +1,17 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import "./style.css"
 import MdKey from 'react-ionicons/lib/MdKey'
 import {MainContext} from "./../Context"
-import {Redirect} from "react-router-dom"
+import {Redirect, Link} from "react-router-dom"
+import Notification from "./../Feedback/Notification"
 const axios = require('axios').default
 
 function Login() {
-    let {setLoggedIn} = useContext(MainContext)
+    let {setLoggedIn, signup, setSignup} = useContext(MainContext)
     let [username, setUsername] = useState("")
     let [pass, setPass] = useState("")
     let [redirect, setRedirect] = useState(false)
+    let [showNoti, setShowNoti] = useState([false, {mesg: "", status: ""}])
 
     function loginForm(e) {
         let target = e.target
@@ -28,19 +30,32 @@ function Login() {
     function submitLogin(e) {
         e.preventDefault()
         axios.post("/login", {user: username, password: pass}).then( res => {
-            // if user credentials are correct
             clearInputs()
-            
-            // set loggedIn state to true
             setLoggedIn(true)
-
-            // redirect the user to home
             setRedirect(true)
         }).catch (err => {
-            // send error notification message to the user
-            alert("Wrong credentials, Please try again!")
+            setShowNoti([true, {mesg: "Wrong id or password. Try again!", status: "faild"}])
         })
     }
+
+    useEffect(() => {
+        let timeId = null
+
+        if (showNoti[0] === true) {
+            timeId = setTimeout(() => setShowNoti([false]), 5000)
+        }
+
+        return () => {
+            clearTimeout(timeId)
+        }
+    }, [showNoti])
+
+    useEffect(() => {
+        if (signup) {
+            setShowNoti([true, {mesg: "You successfuly made a new account!", status: "success"}])
+            setSignup(false)
+        }
+    }, [signup, setShowNoti, setSignup])
 
     return (
         <>
@@ -65,7 +80,11 @@ function Login() {
                                 </button>
                             </div>
                         </form>
+
+                        <h5 className="inup-user">New user? <Link to="/signup">Sign up</Link></h5>
                     </div>
+
+                    {showNoti[0] && <Notification msg={showNoti[1].mesg} status={showNoti[1].status} />}
                 </div>
             )}
         </>

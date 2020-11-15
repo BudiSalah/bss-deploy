@@ -38,6 +38,9 @@ app.use("/", usersRouter)
 const loginRouter = require("./routers/login.router")
 app.use("/login", loginRouter)
 
+const signupRouter = require("./routers/signup.router")
+app.use("/signup", signupRouter)
+
 const matchRouter = require("./routers/match.router")
 app.use("/matchs", matchRouter)
 

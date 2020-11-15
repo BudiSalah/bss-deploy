@@ -8,18 +8,20 @@ function Notification({msg, status}) {
         const baseTime = 5000
 
         let hideTimeId = setTimeout(() => {
-            elem.current.style.opacity = 0
+            if (elem.current !== null)
+                elem.current.style.opacity = 0
         }, baseTime)
 
         let removeTimeId = setTimeout(() => {
-            elem.current.remove()
+            if (elem.current !== null)
+                elem.current.remove()
         }, baseTime + 2000)
 
         return () => {
             clearTimeout(hideTimeId)
             clearTimeout(removeTimeId)
         }
-    }, [])
+    })
     
     return (
         <div ref={elem} className={`notification notification--${status}`}>{msg}</div>

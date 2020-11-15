@@ -174,8 +174,14 @@ function Update() {
     }, [users])
 
     useEffect(() => {
+        let timeId = null
+
         if (showNoti[0] === true) {
-            setTimeout(() => setShowNoti([false]), 1500)
+            timeId = setTimeout(() => setShowNoti([false]), 5000)
+        }
+
+        return () => {
+            clearTimeout(timeId)
         }
     }, [showNoti])
 

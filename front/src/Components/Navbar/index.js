@@ -4,6 +4,7 @@ import {Link} from "react-router-dom"
 import logo from "./../../assets/logo.png"
 import MdKey from 'react-ionicons/lib/MdKey'
 import MdUnlock from 'react-ionicons/lib/MdUnlock'
+import IosClipboard from 'react-ionicons/lib/IosClipboard'
 import {MainContext} from "./../Context"
 const axios = require("axios").default
 
@@ -37,12 +38,21 @@ function Navbar() {
                                     </span>
                                 </Link>
                             ) : (
-                                <Link to="/login" className="btn">
-                                    <MdKey className="btn__icon" fontSize="16px" color="#ffffff"/>
-                                    <span className="btn__text">
-                                        Login
-                                    </span>
-                                </Link>
+                                <div className="logins__wrapper">
+                                    <Link to="/login" className="btn">
+                                        <MdKey className="btn__icon" fontSize="16px" color="#ffffff"/>
+                                        <span className="btn__text">
+                                            Login
+                                        </span>
+                                    </Link>
+                                    
+                                    <Link to="/signup" className="btn">
+                                        <IosClipboard className="btn__icon" fontSize="16px" color="#ffffff"/>
+                                        <span className="btn__text">
+                                            Signup
+                                        </span>
+                                    </Link>
+                                </div>
                             )}
                         </li>
                     </ul>

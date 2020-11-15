@@ -34,3 +34,15 @@
 .nav__item {
     list-style: none;
 }
+
+.logins__wrapper {
+    display: flex;
+    gap: 15px;
+}
+
+@media screen and (max-width: 375px) {
+    .header__container {
+        flex-direction: column;
+        gap: 13px;
+    }
+}

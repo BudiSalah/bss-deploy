@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
 import Page404 from './Components/Page404'
 import Navbar from './Components/Navbar'
 import Login from './Components/Login'
+import Signup from './Components/Signup'
 import Home from './Components/Home'
 import Update from './Components/Update'
 import AddPlayer from './Components/AddPlayer'
@@ -24,6 +25,9 @@ function App() {
           </Route>
           <Route path="/login">
             <Login />
+          </Route>
+          <Route path="/signup">
+            <Signup />
           </Route>
           <Route path="/update">
             <ProtectorRoute>

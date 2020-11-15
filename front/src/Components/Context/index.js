@@ -7,6 +7,9 @@ export const MainContextProvider = (props) => {
 
     const [loggedIn, setLoggedIn] = useState(false)
     globalState = {...globalState, loggedIn, setLoggedIn}
+
+    const [signup, setSignup] = useState(false)
+    globalState = {...globalState, signup, setSignup}
     
     const [users, setUsers] = useState([])
     globalState = {...globalState, users, setUsers}

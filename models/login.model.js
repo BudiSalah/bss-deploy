@@ -11,6 +11,11 @@ const loginSchema = new Schema({
         require: [true, "Missing user password!"],
         select: false
     },
+    role: {
+        type: String,
+        require: [true, "Missing user role!"],
+        default: "admin"
+    },
     league_id: {
         type: String,
         require: [true, "Missing user league id!"],

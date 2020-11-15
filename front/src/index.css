@@ -103,6 +103,11 @@ body:before {
     padding: 8px;
 }
 
+.form__info {
+    font-size: 12px;
+    margin-top: 8px;
+}
+
 .looding.done {
     animation-duration: .4s !important;
 }
