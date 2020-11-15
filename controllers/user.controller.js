@@ -25,9 +25,15 @@ exports.allPlayers = async (req, res) => {
 
 exports.createPlayer = async (req, res) => {
     try {
+        const {name, league_id} = req.body
+        const findPlayer = await User.find({name, league_id})
+
+        if (findPlayer.length > 0)
+            throw new Error("user already exists inside that league")
+
         const newPlayer = await User.create({
-            league_id: req.body.league_id,
-            name: req.body.name
+            name,
+            league_id
         })
         res.status(201).json({
             status: "success",

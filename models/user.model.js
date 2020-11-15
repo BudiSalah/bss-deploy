@@ -7,8 +7,7 @@ const userSchema = new Schema({
     },
     name: {
         type: String,
-        required: [true, "Misssing user name!"],
-        unique: true
+        required: [true, "Misssing user name!"]
     },
     played: {
         type: Number,

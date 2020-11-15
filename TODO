@@ -19,6 +19,7 @@ IMPORTANT
   [+] fix noti in update page (reset)
   [ ] add notification for login page
   [ ] show default league table at home if no user looged in
+  [ ] fix add new player position when old user logout and new one logged in
   [ ] set env to production (https://t.ly/rimx)
   [ ] compression for responses (https://t.ly/rimx)
   [ ] protect against well known vulnerabilities (https://t.ly/rimx)
