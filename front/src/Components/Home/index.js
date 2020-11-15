@@ -13,7 +13,7 @@ function Home() {
     const [fixUpdateBtn, setFixUpdateBtn] = useState({justifyContent: "flex-end"})
 
     useEffect(() => {
-        if (users.length > 2) {
+        if (users.length >= 2) {
             setFixUpdateBtn({})
         }
     }, [users])
