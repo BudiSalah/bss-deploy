@@ -11,6 +11,7 @@ BSS is a web application for creating football E-league tables with your friends
 ## Used technology and Node packages for this project:
 - React
 - Express
+- MongoDB
 - Mongoose
 - JWT
 - cookies

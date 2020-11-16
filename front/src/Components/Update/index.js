@@ -12,6 +12,7 @@ function Update() {
     let [players, setPlayers] = useState("")
     let [firstPlayer, setFirstPlayer] = useState({id: "", name: "", score: ""})
     let [secondPlayer, setSecondPlayer] = useState({id: "", name: "", score: ""})
+    let [submited, setSubmited] = useState(false)
 
     function clearInputs() {
         setFirstPlayer({id: "", name: "", score: "", pints: 0})
@@ -34,8 +35,12 @@ function Update() {
 
     function submitForm(e) {
         e.preventDefault()
+        
+        setSubmited(true)
+
         if ((firstPlayer.id === "" || secondPlayer.id === "") || (firstPlayer.score === "" || secondPlayer.score === "")) {
             alert("Wrong Inputs")
+            setSubmited(false)
             return
         }
 
@@ -65,6 +70,7 @@ function Update() {
             document.body.scrollIntoView({ behavior: "smooth" })
         }).catch(err => {
             setShowNoti([true, {mesg: "Can't update match. Try again!", status: "faild"}])
+            setSubmited(false)
             return
         })
         
@@ -74,8 +80,10 @@ function Update() {
             playerTwo: secondPlayerObJ
         }).then(res => {
             setShowNoti([true, {mesg: "Table has updated!", status: "success"}])
+            setSubmited(false)
         }).catch(err => {
             setShowNoti([true, {mesg: "Can't update players", status: "faild"}])
+            setSubmited(false)
         })
     }
 
@@ -220,7 +228,7 @@ function Update() {
                             </div>
                         </div>
 
-                        <button id="submit-btn" type="submit" className="btn btn--center form__item--hidden">
+                        <button id="submit-btn" type="submit" className={`btn btn--center form__item--hidden ${submited ? "fieldset__input--hidden" : ""}`} disabled={submited}>
                             <MdAdd className="btn__icon" fontSize="16px" color="#ffffff" />
                             <span className="btn__text">Update</span>
                         </button>

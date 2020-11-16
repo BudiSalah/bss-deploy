@@ -9,6 +9,7 @@ function AddPlayer() {
     let {credential} = useContext(MainContext)
     let [newPlayer, setNewPlayer] = useState("")
     let [showNoti, setShowNoti] = useState([false, {mesg: "", status: ""}])
+    let [submited, setSubmited] = useState(false)
 
     function clearInputs() {
         setNewPlayer("")
@@ -16,14 +17,17 @@ function AddPlayer() {
 
     function submitNewPlayer(e) {
         e.preventDefault()
+        setSubmited(true)
         axios.post("/add-player", {
             league_id: credential.leauge,
             name: newPlayer
         }).then(res => {
             clearInputs()
             setShowNoti([true, {mesg: `${newPlayer} has added!`, status: "success"}])
+            setSubmited(false)
         }).catch(err => {
             setShowNoti([true, {mesg: "Player exists. Try new name!", status: "faild"}])
+            setSubmited(false)
         })
     }
 
@@ -48,7 +52,7 @@ function AddPlayer() {
                         <input type="text" id="playername" className="fieldset__input" value={newPlayer} onChange={(e) => setNewPlayer(e.target.value.toLowerCase())} />
                     </div>
                     <div className="fieldset">
-                        <button className="btn btn--text-center fieldset__input">
+                        <button className={`btn btn--text-center fieldset__input ${submited ? "fieldset__input--hidden" : ""}`} disabled={submited}>
                             <MdAdd className="btn__icon" fontSize="16px" color="#ffffff"/>
                             <span className="btn__text">Add Player</span>
                         </button>

@@ -17,6 +17,7 @@ function Signup() {
     let [confirmPass, setConfirmPass] = useState("")
     let [redirect, setRedirect] = useState(false)
     let [showNoti, setShowNoti] = useState([false, { mesg: "", status: "" }])
+    let [submited, setSubmited] = useState(false)
 
     function loginForm(e) {
         let target = e.target
@@ -38,28 +39,35 @@ function Signup() {
     function submitSignup(e) {
         e.preventDefault()
 
+        setSubmited(true)
+
         if (username === "" || username.length < USER_MIN_LEN) {
             setShowNoti([true, { mesg: "Username is too short. Try again!", status: "faild" }])
+            setSubmited(false)
             return
         }
 
         if (username.length > USER_MAX_LEN) {
             setShowNoti([true, { mesg: "Username is too long. Try again!", status: "faild" }])
+            setSubmited(false)
             return
         }
 
         if (pass === "" || pass.length < PASS_MIN_LEN) {
             setShowNoti([true, { mesg: "Password is too short. Try again!", status: "faild" }])
+            setSubmited(false)
             return
         }
 
         if (pass.length > PASS_MAX_LEN) {
             setShowNoti([true, { mesg: "Password is too long. Try again!", status: "faild" }])
+            setSubmited(false)
             return
         }
 
         if (confirmPass !== pass) {
             setShowNoti([true, { mesg: "Passwords not matched. Try again!", status: "faild" }])
+            setSubmited(false)
             return
         }
 
@@ -67,7 +75,9 @@ function Signup() {
             clearInputs()
             setSignup(true)
             setRedirect(true)
+            setSubmited(false)
         }).catch(err => {
+            setSubmited(false)
             setShowNoti([true, { mesg: "User already exists!", status: "faild" }])
         })
     }
@@ -107,7 +117,7 @@ function Signup() {
                                     <input type="password" id="confirm-password" className="fieldset__input" value={confirmPass} onChange={loginForm} minLength="6" autoComplete="off" />
                                 </div>
                                 <div className="fieldset">
-                                    <button className="btn btn--text-center fieldset__input">
+                                    <button className={`btn btn--text-center fieldset__input ${submited ? "fieldset__input--hidden" : ""}`} disabled={submited}>
                                         <IosClipboard className="btn__icon" fontSize="16px" color="#ffffff" />
                                         <span className="btn__text">Signup</span>
                                     </button>

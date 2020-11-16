@@ -12,6 +12,7 @@ function Login() {
     let [pass, setPass] = useState("")
     let [redirect, setRedirect] = useState(false)
     let [showNoti, setShowNoti] = useState([false, {mesg: "", status: ""}])
+    let [submited, setSubmited] = useState(false)
 
     function loginForm(e) {
         let target = e.target
@@ -29,12 +30,15 @@ function Login() {
 
     function submitLogin(e) {
         e.preventDefault()
+        setSubmited(true)
         axios.post("/login", {user: username, password: pass}).then( res => {
             clearInputs()
             setLoggedIn(true)
             setRedirect(true)
+            setSubmited(false)
         }).catch (err => {
             setShowNoti([true, {mesg: "Wrong id or password. Try again!", status: "faild"}])
+            setSubmited(false)
         })
     }
 
@@ -74,7 +78,7 @@ function Login() {
                                 <input type="password" id="password" className="fieldset__input" value={pass} onChange={loginForm} />
                             </div>
                             <div className="fieldset">
-                                <button className="btn btn--text-center fieldset__input">
+                                <button className={`btn btn--text-center fieldset__input ${submited ? "fieldset__input--hidden" : ""}`} disabled={submited}>
                                     <MdKey className="btn__icon" fontSize="16px" color="#ffffff" />
                                     <span className="btn__text">Login</span>
                                 </button>

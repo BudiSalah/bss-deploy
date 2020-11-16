@@ -103,6 +103,11 @@ body:before {
     padding: 8px;
 }
 
+.fieldset__input--hidden {
+    opacity: .5;
+    pointer-events: none;
+}
+
 .form__info {
     font-size: 12px;
     margin-top: 8px;
