@@ -17,7 +17,7 @@ app.use(express.static(path.join(__dirname, "/front/build")))
 // mongoose
 //FIXME: handle error (if something went wrong while connecting to db)
 try {
-    const db_url = process.env.DB_URL.replace("<PASSWORD>", process.env.DB_PASS)
+    const db_url = process.env.DB_URL.replace("<PASSWORD>", process.env.DB_PASS).replace("<DB_NAME>", process.env.DB_NAME)
     mongoose.connect(db_url, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
