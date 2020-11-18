@@ -57,6 +57,7 @@
 }
 
 .form__fieldset--number input {
+    display: inline-block;
     width: 70px;
     height: 70px;
     text-align: center;

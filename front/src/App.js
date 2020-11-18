@@ -8,6 +8,8 @@ import Login from './Components/Login'
 import Signup from './Components/Signup'
 import Home from './Components/Home'
 import Update from './Components/Update'
+import Matches from './Components/Matches/Matches'
+import MatchesSingle from './Components/Matches/Single'
 import AddPlayer from './Components/AddPlayer'
 import ProtectorRoute from "./Components/ProtectorRoute"
 
@@ -32,6 +34,16 @@ function App() {
           <Route path="/update">
             <ProtectorRoute>
               <Update />
+            </ProtectorRoute>
+          </Route>
+          <Route exact path="/matches">
+            <ProtectorRoute>
+              <Matches />
+            </ProtectorRoute>
+          </Route>
+          <Route path="/matches/:id">
+            <ProtectorRoute>
+              <MatchesSingle />
             </ProtectorRoute>
           </Route>
           <Route path="/add-player">

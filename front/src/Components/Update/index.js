@@ -62,7 +62,7 @@ function Update() {
             points: secondPlayer.score > firstPlayer.score ? 3 : secondPlayer.score < firstPlayer.score ? 0 : 1
         }
 
-        axios.post("/matchs/update", {
+        axios.post("/matches/update", {
             playerOne: firstPlayerObJ,
             playerTwo: secondPlayerObJ
         }).then(res => {

@@ -56,6 +56,11 @@ tbody .table__row:nth-of-type(even) {
     text-transform: capitalize;
 }
 
+.table__link {
+    color: #000;
+    text-decoration: none;
+}
+
 .table__row--head {
     background-color: #333;
     color: #fff;

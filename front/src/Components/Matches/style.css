@@ -1,0 +1,107 @@
+.matches__list {
+    overflow-y: auto;
+    max-height: 70vh;
+    margin: 0;
+    padding: 20px;
+    list-style: none;
+    background-color: #fff;
+}
+
+.matches__item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.matches__item:last-of-type {
+    margin-bottom: 0;
+}
+
+.matches__item:nth-of-type(odd) {
+    background: #eee;
+}
+
+.matches__item:nth-of-type(even) {
+    background: #d1d1d1;
+}
+
+.matches__firstplayer,
+.matches__result,
+.matches__secondplayer {
+    text-align: center;
+    padding: 15px 0;
+    font-size: 18px;
+}
+
+.matches__result {
+    flex: 0 0 15%;
+    width: 15%;
+}
+
+.matches__item:nth-of-type(odd) > .matches__result {
+    background: #eee;
+}
+
+.matches__item:nth-of-type(even) > .matches__result {
+    background: #d1d1d1;
+}
+
+.matches__item .matches__result.won,
+.matches__item .matches__result.draw,
+.matches__item .matches__result.loss {
+    color: #fff;
+}
+
+.matches__firstplayer,
+.matches__secondplayer {
+    flex: 0 0 42.5%;
+    width: 42.5%;
+    color: #fff;
+    text-transform: capitalize;
+}
+
+.matches__firstplayer.won,
+.matches__secondplayer.won,
+.matches__item .matches__result.won {
+    background-color: var(--win-color);
+}
+
+.matches__firstplayer.draw,
+.matches__secondplayer.draw,
+.matches__item .matches__result.draw {
+    background-color: var(--draw-color);
+}
+
+.matches__firstplayer.loss,
+.matches__secondplayer.loss,
+.matches__item .matches__result.loss {
+    background-color: var(--lose-color);
+}
+
+.matches__firstplayer--single,
+.matches__secondplayer--single {
+    background-color: transparent !important;
+    color: #000;
+}
+
+@media screen and (max-width: 500px) {
+    .matches__list {
+        margin-top: 0;
+        margin-bottom: 15px;
+        padding: 8px
+    }
+    
+    .matches__firstplayer,
+    .matches__result,
+    .matches__secondplayer {
+        font-size: 14px;
+    }
+}
+                
+@media screen and (max-width: 345px) {
+    .nav__list {
+        flex-direction: column;
+    }
+}

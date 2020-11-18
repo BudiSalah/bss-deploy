@@ -41,8 +41,8 @@ app.use("/login", loginRouter)
 const signupRouter = require("./routers/signup.router")
 app.use("/signup", signupRouter)
 
-const matchRouter = require("./routers/match.router")
-app.use("/matchs", matchRouter)
+const matchesRouter = require("./routers/matches.router")
+app.use("/matches", matchesRouter)
 
 const {logoutUser} = require("./controllers/login-controller")
 app.get("/logout", logoutUser)

@@ -3,6 +3,7 @@ import "./style.css"
 import crown from "./../../assets/crown.png"
 import { Link } from "react-router-dom"
 import MdAdd from 'react-ionicons/lib/MdAdd'
+import IosArchive from 'react-ionicons/lib/IosArchive'
 import { MainContext } from "./../Context"
 const axios = require("axios").default
 
@@ -100,7 +101,11 @@ function Home() {
                                             <td className="table__item table__item--rank">
                                                 {index === 0 ? <img src={crown} alt="Crown" /> : index + 1}
                                             </td>
-                                            <td className="table__item table__item--name">{name}</td>
+                                            <td className="table__item table__item--name">
+                                                <Link className="table__link" to={`matches/${_id}`}>
+                                                    {name}
+                                                </Link>
+                                            </td>
                                             <td className="table__item">{played}</td>
                                             <td className="table__item win">{won}</td>
                                             <td className="table__item draw">{draw}</td>
@@ -130,13 +135,20 @@ function Home() {
                 <div className="container">
                     <div className="nav__list" style={fixUpdateBtn}>
                         {(users.length >= 2) &&
-                            <Link to="/update" className="btn">
+                        <>
+                            <Link to="/update" className="btn btn--table">
                                 <MdAdd className="btn__icon" fontSize="16px" color="#ffffff" />
                                 <span className="btn__text">Update</span>
                             </Link>
+
+                            <Link to="/matches" className="btn btn--table">
+                                <IosArchive className="btn__icon" fontSize="16px" color="#ffffff" />
+                                <span className="btn__text">Matches</span>
+                            </Link>
+                        </>
                         }
                         {loggedIn &&
-                            <Link to="/add-player" className="btn">
+                            <Link to="/add-player" className="btn btn--table">
                                 <MdAdd className="btn__icon" fontSize="16px" color="#ffffff" />
                                 <span className="btn__text">Add Player</span>
                             </Link>

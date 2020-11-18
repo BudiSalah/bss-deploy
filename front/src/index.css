@@ -33,6 +33,17 @@ body:before {
     max-width: 450px;
 }
 
+.headline {
+    text-align: center;
+}
+
+.headline__text {
+    text-transform: capitalize;
+    font-size: 32px;
+    text-shadow: 2px 2px 8px #fff;
+    line-height: 1;
+}
+
 .btn {
     display: flex;
     flex-wrap: wrap;
@@ -47,6 +58,11 @@ body:before {
     border: none;
     cursor: pointer;
     transition: .3s all linear;
+}
+
+.btn--table {
+    min-width: 145px;
+    justify-content: center;
 }
 
 .btn--center {
@@ -101,6 +117,7 @@ body:before {
 
 .fieldset__input {
     padding: 8px;
+    border: 1px solid #767676;
 }
 
 .fieldset__input--hidden {
@@ -136,5 +153,12 @@ body:before {
 
     100% {
         width: 100%;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .headline__text {
+        margin-top: 0;
+        margin-bottom: 15px;
     }
 }
